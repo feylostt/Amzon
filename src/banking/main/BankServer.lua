@@ -42,7 +42,7 @@ end
 function displayTotalBalance()
     local totalBal = 0
 
-    for slot, item in pairs(chest.list()) do
+    for slot, item in pairs(vault.list()) do
         totalBal = totalBal + item.count
     end
     monitor.clear()
