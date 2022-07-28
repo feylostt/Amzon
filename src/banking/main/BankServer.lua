@@ -46,7 +46,8 @@ function displayTotalBalance()
         totalBal = totalBal + item.count
     end
     monitor.clear()
-    monitor.setCursorPos(1, 1)
+    monitor.setCursorPos(2, 2)
+    monitor.setTextScale(2.5)
     monitor.write(totalBal.." diamonds")
 end
 
