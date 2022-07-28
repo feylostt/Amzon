@@ -1,18 +1,21 @@
--- Computer ID (CHANGE THIS)
-local computerID = 3
-
 -- Ender Modem
-local side = "right"
+local side = "back"
 rednet.open(side)
 
 -- Version
 local v = "1.0"
 
--- Load hash api for passwords
+-- Password Hash
 os.loadAPI("hash")
 
--- Authentication
-function auth(id, account, pin)
+-- The Vault
+local vault = peripheral.find("create:item_vault")
+
+-- Monitor
+local monitor = peripheral.find("monitor")
+
+-- User Authentication
+function remoteAuth(id, account, pin)
     local accountRight = false
     local pinRight = false
 
@@ -30,25 +33,25 @@ function auth(id, account, pin)
     if accountRight then
         if pinRight then
             rednet.send(id, "correct")
+            return true
         end
     end
 end
 
--- Main Loop
-function begin()
-    term.setBackgroundColor(colors.pink)
-    term.clear()
-    term.setCursorPos(1, 1)
-    print("Vault Controller V"..v)
-    id1, msg1 = rednet.receive()
-    id2, msg2 = rednet.receive()
-    a = textutils.unserialize(msg1)
-    p = textutils.unserialize(msg2)
-    if id1 == id2 then
-        auth(id1, a, p)
+-- Display Balance
+function displayTotalBalance()
+    local totalBal = 0
+
+    for slot, item in pairs(chest.list()) do
+        totalBal += item.count
     end
+    monitor.clear()
+    monitor.setCursorPos(1, 1)
+    monitor.write(totalBal.." diamonds")
 end
 
+
+-- Main Loop
 while true do
-    begin()
+    displayTotalBalance()
 end
