@@ -446,7 +446,7 @@ function deposit()
     sleep(5)
 
     local barrel = peripheral.find("minecraft:barrel")
-    local vault = peripheral.find("minecraft:vault")
+    local vault = peripheral.find("create:item_vault")
 
     local depositAmount = 0
 
@@ -462,8 +462,11 @@ function deposit()
         sleep(3)
         clear()
     else
+        rednet.broadcast("deposit", proto)
+        senderID, message = rednet.receive(proto)
+        
         print("Sending account access request...")
-        rednet.broadcast(AccNum,proto)
+        rednet.broadcast(AccNum, proto)
         print("Receiving continue confirmation...")
         senderID, message = rednet.receive(proto)
         sleep(.02)
