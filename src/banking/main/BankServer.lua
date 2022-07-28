@@ -43,7 +43,7 @@ function displayTotalBalance()
     local totalBal = 0
 
     for slot, item in pairs(chest.list()) do
-        totalBal += item.count
+        totalBal = totalBal + item.count
     end
     monitor.clear()
     monitor.setCursorPos(1, 1)
