@@ -445,8 +445,8 @@ function deposit()
     print("Please put your diamonds in the compartment above.")
     sleep(5)
 
-    local barrel = peripheral.wrap("minecraft:barrel_0")
-    local vault = peripheral.find("create:item_vault")
+    local barrel = peripheral.find("minecraft:barrel")
+    local vault = peripheral.find("minecraft:vault")
 
     local depositAmount = 0
 
