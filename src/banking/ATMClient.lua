@@ -454,6 +454,7 @@ function deposit()
         if item.name == "minecraft:diamond" then
             local nextSlot = 1
             local lastSlot = 0
+            printer.newPage()
             for slot, item in ipairs(vault.list()) do
                 if item == nil then
                     nextSlot = lastSlot + 1
@@ -462,18 +463,20 @@ function deposit()
                     lastSlot = slot
                 end
 
+                printer.setCursorPos(1, lastSlot)
                 printer.write(item.count)
+                
             end
+            
+            printer.endPage()
 
-            barrel.pushItems(peripheral.getName(vault), slot, )
+            barrel.pushItems(peripheral.getName(vault), slot, nextSlot)
         end
     end
-
-    printer.endPage()
 end
 
 function withdraw()
-    
+
 end
 
 function makePay()
