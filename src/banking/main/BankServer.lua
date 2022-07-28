@@ -47,12 +47,33 @@ function displayTotalBalance()
     end
     monitor.clear()
     monitor.setCursorPos(2, 2)
-    monitor.setTextScale(1)
+    monitor.setTextScale(2)
     monitor.write(totalBal.." diamonds")
 end
 
+-- Main Function
+function begin()
+    term.setBackgroundColor(colors.blue)
+    term.clear()
+    term.setCursorPos(1,1)
+    print("Comfy Bank Server V"..v)
+    id1, msg1 = rednet.receive()
+    id2, msg2 = rednet.receive()
+    a = textutils.unserialize(msg1)
+    p = textutils.unserialize(msg2)
+    if id1 == id2 then
+        auth(id1, a, p)
+    end
+end
+
+-- Store Balance
+-- Send Balance
+-- Transfer Balance
+-- Withdraw Balance
+-- Deposit Balance
 
 -- Main Loop
 while true do
     displayTotalBalance()
+    begin()
 end
