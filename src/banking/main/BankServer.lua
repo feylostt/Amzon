@@ -47,7 +47,7 @@ function displayTotalBalance()
     end
     monitor.clear()
     monitor.setCursorPos(2, 2)
-    monitor.setTextScale(2.5)
+    monitor.setTextScale(1.5)
     monitor.write(totalBal.." diamonds")
 end
 
