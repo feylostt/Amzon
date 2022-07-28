@@ -1,0 +1,20 @@
+Server-side things
+- Stock
+- Storage Management (Taking Orders)
+
+Common things
+- Delivery
+
+Client-side things
+- Ordering
+- Displaying stock
+- Paying
+
+
+
+- Banking (Amzon Cards)
+    - Paying
+    - Transfering
+    - Depositing
+    - Withdrawal
+    - Membership cost (2 diamonds? 5 diamonds?)
