@@ -54,7 +54,7 @@ while true do
             sleep(.03)
         end
         rednet.broadcast("noFile",proto)
-    elseif opt == "deposit"
+    elseif opt == "deposit" then
         sleep(0.2)
         clear()
         print("Ready")
