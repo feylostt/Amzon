@@ -448,30 +448,33 @@ function deposit()
     local barrel = peripheral.find("minecraft:barrel")
     local vault = peripheral.find("create:item_vault")
 
-    local printer = peripheral.find("printer")
+    local depositAmount = 0
 
     for slot, item in pairs(barrel.list()) do
         if item.name == "minecraft:diamond" then
-            local nextSlot = 1
-            local lastSlot = 0
-            printer.newPage()
-            for slot, item in ipairs(vault.list()) do
-                if item == nil then
-                    nextSlot = lastSlot + 1
-                    break
-                else
-                    lastSlot = slot
-                end
-
-                printer.setCursorPos(1, lastSlot)
-                printer.write(item.count)
-                
-            end
-            
-            printer.endPage()
-
-            barrel.pushItems(peripheral.getName(vault), slot, nextSlot)
+            vault.pullItems(peripheral.getName(barrel), slot)
+            depositAmount = depositAmount + item.count
         end
+    end
+
+    if depositAmount == 0 then
+        print("No diamonds found.")
+        sleep(3)
+        clear()
+    else
+        print("Sending account access request...")
+        rednet.broadcast(AccNum,proto)
+        print("Receiving continue confirmation...")
+        senderID, message = rednet.receive(proto)
+        sleep(.02)
+        print("Sending deposit ammount...")
+        rednet.broadcast(depositAmount, proto)
+        print("Receiving continue confirmation...")
+        senderID, message = rednet.receive(proto)
+        sleep(.02)
+        print("Done!")
+        sleep(3)
+        clear()
     end
 end
 

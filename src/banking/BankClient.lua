@@ -478,7 +478,7 @@ function makePay()
             xDolla = tonumber(xDolla)
             if xDolla==0 or xDolla < 0 then
                 clear()
-                print("That is an invalid transaction. You must deposite at least $.01.")
+                print("That is an invalid transaction. You must deposit at least $.01.")
                 sleep(3)
                 clear()
             else

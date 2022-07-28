@@ -54,6 +54,31 @@ while true do
             sleep(.03)
         end
         rednet.broadcast("noFile",proto)
+    elseif opt == "deposit"
+        sleep(0.2)
+        clear()
+        print("Ready")
+        rednet.broadcast("ready", proto)
+        print("Receiving depto information")
+        senderID, depTo = rednet.receive(proto)
+        sleep(.01)
+        rednet.broadcast("ready",proto)
+        print("Receiving deposit information")
+        senderID, depAmount = rednet.receive(proto)
+
+        f = fs.open("acc/"..depTo.."/BALANCE", "r")
+        preDeposit = tonumber(f.readline())
+        f.close()
+        print("Calculating deposit")
+        
+        deposited = preDeposit + depAmount
+
+        print("Applying deposit to "..depTo)
+        f = fs.open("acc/"..depTo.."/BALANCE","w")
+        f.writeLine(deposited)
+        f.close()
+        clear()
+        
     elseif opt=="makePayment" then
         sleep(.02)
         clear()
