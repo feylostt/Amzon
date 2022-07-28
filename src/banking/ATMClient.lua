@@ -389,9 +389,9 @@ function bank()
         term.setCursorPos(5,4)
         print("Check Balance")
         term.setCursorPos(5,7)
-        print("Make a Payment")
+        print("Deposit")
         term.setCursorPos(5,10)
-        print("Personal Settings")
+        print("Withdraw")
         term.setCursorPos(5,13)
         print("Exit")
         local event, button, x1, y1 = os.pullEvent("mouse_click")
@@ -401,11 +401,11 @@ function bank()
             end
         elseif y1==7 then
             if x1==2 or x1==3 then
-                makePay()
+                deposit()
             end
         elseif y1==10 then
             if x1==2 or x1==3 then
-                pSet()
+                withdraw()
             end
         elseif y1==13 then
             if x1==2 or x1==3 then
@@ -440,6 +440,42 @@ function inPay()
     bal()
 end
    
+function deposit()
+    clear()
+    print("Please put your diamonds in the compartment above.")
+    sleep(5)
+
+    local barrel = peripheral.find("minecraft:barrel")
+    local vault = peripheral.find("create:item_vault")
+
+    local printer = peripheral.find("printer")
+
+    for slot, item in pairs(barrel.list()) do
+        if item.name == "minecraft:diamond" then
+            local nextSlot = 1
+            local lastSlot = 0
+            for slot, item in ipairs(vault.list()) do
+                if item == nil then
+                    nextSlot = lastSlot + 1
+                    break
+                else
+                    lastSlot = slot
+                end
+
+                printer.write(item.count)
+            end
+
+            barrel.pushItems(peripheral.getName(vault), slot, )
+        end
+    end
+
+    printer.endPage()
+end
+
+function withdraw()
+    
+end
+
 function makePay()
     clear()
     print("Requesting information...")
