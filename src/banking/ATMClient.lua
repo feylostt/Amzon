@@ -477,8 +477,42 @@ function deposit()
     end
 end
 
+-- < 1729
 function withdraw()
+    clear()
+    print("Please empty the compartment above.")
+    sleep(5)
 
+    local barrel = peripheral.find("minecraft:barrel")
+    local vault = peripheral.find("create:item_vault")
+
+    local withdrawAmount = 0
+
+    for slot, item in pairs(barrel.list()) do
+        if item.name == "minecraft:diamond" then
+            vault.pullItems(peripheral.getName(barrel), slot)
+            depositAmount = depositAmount + item.count
+        end
+    end
+
+    if depositAmount == 0 then
+        print("No diamonds found.")
+        sleep(3)
+        clear()
+    else
+        clear()
+        print("Preparing to make payment...")
+        sleep(.02)
+        rednet.broadcast("deposit",proto)
+        print("Receiving startup confirmation...")
+        senderID, message = rednet.receive(proto)
+        sleep(.02)
+        print("Sending deposit ammount...")
+        rednet.broadcast(depositAmount,proto)
+        print("Done!")
+        sleep(3)
+        clear()
+    end
 end
 
 function makePay()
